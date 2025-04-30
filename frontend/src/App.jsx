@@ -9,7 +9,8 @@ import Profile from "./pages/Profile";
 
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthStore } from "./store/useAuthStore";
-import { Loader } from "lucide-react";
+import { Loader, } from "lucide-react";
+import {Toaster} from "react-hot-toast"
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -20,13 +21,14 @@ const App = () => {
 
   console.log({ authUser });
 
-  if(isCheckingAuth && !authUser){
-
-    <div className="flex items-center justify-center h-screen">
-      <Loader className="size-10 animate-spin"/>
-    </div>
-
+  if (isCheckingAuth && !authUser) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
   }
+  
 
   return (
     <div>
@@ -39,6 +41,8 @@ const App = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={authUser?<Profile />:<Navigate to="/login" />} />
       </Routes>
+
+      <Toaster/>
     </div>
   );
 };
