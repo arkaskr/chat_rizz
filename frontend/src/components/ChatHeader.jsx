@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
 const ChatHeader = () => {
-  const { selectedUser, setSelectedUser } = useChatStore();
+  const { selectedUser, setSelectedUser,display,setDisplay } = useChatStore();
   const { onlineUsers } = useAuthStore();
 
   return (
@@ -27,7 +27,7 @@ const ChatHeader = () => {
         </div>
 
         {/* Close button */}
-        <button className="cursor-pointer" onClick={() => setSelectedUser(null)}>
+        <button className="cursor-pointer" onClick={() => {setSelectedUser(null); setDisplay(!display);}}>
           <X />
         </button>
       </div>
