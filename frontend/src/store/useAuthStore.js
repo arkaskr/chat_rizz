@@ -1,17 +1,17 @@
 import { create } from "zustand";
-import { axiosInstance } from "../lib/axios";
+import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const BASE_URL ="https://chat-rizz.onrender.com";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
   isSigningUp: false,
-  isLogingIn: false,
+  isLoggingIn: false,
   isUpdatingProfile: false,
   isCheckingAuth: true,
-  onlineUsers  : [],
+  onlineUsers: [],
   socket: null,
 
   checkAuth: async () => {
@@ -28,7 +28,7 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  signup: async (data)=>{
+  signup: async (data) => {
     set({ isSigningUp: true });
     try {
       const res = await axiosInstance.post("/auth/signup", data);
@@ -48,6 +48,7 @@ export const useAuthStore = create((set, get) => ({
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
       toast.success("Logged in successfully");
+
       get().connectSocket();
     } catch (error) {
       toast.error(error.response.data.message);
