@@ -7,34 +7,34 @@ const ContactSearch = ({ token }) => {
   const [customName, setCustomName] = useState('');
   const [message, setMessage] = useState('');
 
-  const searchUser = async () => {
-    try {
-      const res = await axios.get(`/api/users/search?phone=${phone}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setUser(res.data);
-      setMessage('');
-    } catch (err) {
-      setUser(null);
-      setMessage('User not found');
-    }
-  };
+  // const searchUser = async () => {
+  //   try {
+  //     const res = await axios.get(`/api/users/search?phone=${phone}`, {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     });
+  //     setUser(res.data);
+  //     setMessage('');
+  //   } catch (err) {
+  //     setUser(null);
+  //     setMessage('User not found');
+  //   }
+  // };
 
-  const addToContacts = async () => {
-    try {
-      await axios.post(
-        '/api/users/add-contact',
-        { phone, name: customName },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setMessage('Contact added successfully');
-      setUser(null);
-      setPhone('');
-      setCustomName('');
-    } catch (err) {
-      setMessage('Failed to add contact');
-    }
-  };
+  // const addToContacts = async () => {
+  //   try {
+  //     await axios.post(
+  //       '/api/users/add-contact',
+  //       { phone, name: customName },
+  //       { headers: { Authorization: `Bearer ${token}` } }
+  //     );
+  //     setMessage('Contact added successfully');
+  //     setUser(null);
+  //     setPhone('');
+  //     setCustomName('');
+  //   } catch (err) {
+  //     setMessage('Failed to add contact');
+  //   }
+  // };
 
   return (
     <div className='flex flex-col items-center justify-center'>
