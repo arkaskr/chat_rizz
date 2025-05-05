@@ -38,7 +38,7 @@ const ChatContainer = () => {
 
   if (isMessagesLoading) {
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full w-full">
         <div className="sticky top-0 z-10 sm:none">
           <ChatHeader />
         </div>

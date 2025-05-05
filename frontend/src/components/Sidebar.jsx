@@ -3,6 +3,7 @@ import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 import { Users } from "lucide-react";
+import ContactSearch from "./ContactSearch";
 
 const Sidebar = () => {
   const {
@@ -30,6 +31,7 @@ const Sidebar = () => {
 
   return (
     <aside className="sm:flex h-full sm:w-20 lg:w-72 border-r border-base-300 flex-col transition-all duration-200">
+      <ContactSearch/>
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center justify-center sm:justify-start gap-2">
           <Users className="hidden sm:block size-6" />
