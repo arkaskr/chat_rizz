@@ -30,8 +30,9 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="sm:flex h-full sm:w-20 lg:w-72 border-r border-base-300 flex-col transition-all duration-200">
-      <ContactSearch/>
+    <aside className="flex flex-col h-full sm:w-20 lg:w-72 border-r border-base-300 transition-all duration-200">
+      <ContactSearch />
+
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center justify-center sm:justify-start gap-2">
           <Users className="hidden sm:block size-6" />
@@ -41,7 +42,7 @@ const Sidebar = () => {
         </div>
 
         <div className="mt-3 hidden lg:flex items-center gap-2">
-          <label className="cursor-pointer hidden  sm:flex items-center gap-2">
+          <label className="cursor-pointer hidden sm:flex items-center gap-2">
             <input
               type="checkbox"
               checked={showOnlineOnly}
@@ -56,43 +57,45 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="overflow-y-auto w-full py-3">
+      <div className="flex-grow overflow-y-auto w-full py-3 custom-scrollbar">
         {filteredUsers.map((user) => (
           <button
-          key={user._id}
-          onClick={() => { setSelectedUser(user); setDisplay(!display); }}
-          className={`
-            w-full p-3 flex items-center gap-3
-            hover:bg-base-300 transition-colors
-            ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
-          `}
-        >
-          <div className="flex items-center gap-3 w-full">
-            {/* Avatar */}
-            <div className="relative">
-              <img
-                src={user.profilePic || "/avatar.png"}
-                alt={user.name}
-                className="size-12 object-cover rounded-full"
-              />
-              {onlineUsers.includes(user._id) && (
-                <span
-                  className="absolute bottom-0 right-0 size-3 bg-green-500 
-                  rounded-full ring-2 ring-zinc-900"
+            key={user._id}
+            onClick={() => {
+              setSelectedUser(user);
+              setDisplay(!display);
+            }}
+            className={`
+              w-full p-3 flex items-center gap-3
+              hover:bg-base-300 transition-colors
+              ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
+            `}
+          >
+            <div className="flex items-center gap-3 w-full">
+              {/* Avatar */}
+              <div className="relative">
+                <img
+                  src={user.profilePic || "/avatar.png"}
+                  alt={user.name}
+                  className="size-12 object-cover rounded-full"
                 />
-              )}
-            </div>
-        
-            {/* User Info - visible on all screen sizes now */}
-            <div className="lg:block text-left min-w-0">
-              <div className="font-medium truncate">{user.fullName}</div>
-              <div className="text-sm text-zinc-400">
-                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
+                {onlineUsers.includes(user._id) && (
+                  <span
+                    className="absolute bottom-0 right-0 size-3 bg-green-500 
+                    rounded-full ring-2 ring-zinc-900"
+                  />
+                )}
+              </div>
+
+              {/* User Info */}
+              <div className="lg:block text-left min-w-0">
+                <div className="font-medium truncate">{user.fullName}</div>
+                <div className="text-sm text-zinc-400">
+                  {onlineUsers.includes(user._id) ? "Online" : "Offline"}
+                </div>
               </div>
             </div>
-          </div>
-        </button>
-        
+          </button>
         ))}
 
         {filteredUsers.length === 0 && (
@@ -102,4 +105,5 @@ const Sidebar = () => {
     </aside>
   );
 };
+
 export default Sidebar;
